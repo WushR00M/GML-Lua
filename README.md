@@ -58,7 +58,12 @@ clang -shared -O2 -fPIC -I path/to/lua-5.4/src \
 
 ## How to Use
 
-1. In the IDE: **Tools > Import Local Package**, or create a new Extension resource manually, pointing at the compiled `.dll`/`.dylib`/`.so` for each target platform.
+### Pre-Compiled
+1. In the IDE: **Tools > Import Local Package**
+2. Import the extension into your project!
+
+### Built from Source
+1. In the IDE: create a new Extension resource manually, pointing at the compiled `.dll`/`.dylib`/`.so` for each target platform.
 2. Declare each function from `gml_lua_bridge.h` in the extension's function list, matching argument/return types:
    - `gml_lua_create_context` - Returns `double`, no arguments
    - `gml_lua_destroy_context` - Returns `double`, argument0 = `double`
@@ -68,6 +73,23 @@ clang -shared -O2 -fPIC -I path/to/lua-5.4/src \
    - `gml_lua_resolve_call` - Returns `double`, argument0 = `double`, argument1 = `double`, argument2 = `string`
    - `gml_lua_get_last_error` - Returns `string`, argument0 = `double`
 3. See `sample_usage.gml` for the GML-side controller object pattern (one persistent object per active mod context, polling the queue in its Step Event).
+
+### GameMaker Side
+To write functions that use `game_call`, you can add them to the list of cases in the Step Event of your Lua controller object (read `sample_usage.gml` and `sample_usage2.gml` for more info):
+```
+case "SetCurrentRoom":
+    var _parts = string_split(_args, ",");
+    var _room = _parts[0];
+    _room = asset_get_index(_room);
+
+    if room_exists(_room) {
+        room_goto(_room);
+        _result = room_get_name(_room);
+    } else {
+        _result = -1;	
+    }
+break;
+```
 
 ## Other Examples
 
