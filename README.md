@@ -18,7 +18,7 @@ GML + Lua is a tool for developers to implement Lua scripting in GameMaker proje
 
 ## Compiling
 
->[!WARNING]
+>[!IMPORTANT]
 >Currently, you cannot use any version of Lua above 5.4.8, it is **highly recommended** you use the source for Lua 5.4.7 or **Lua 5.4.8**.
 
 ### Linux
@@ -49,10 +49,12 @@ clang -shared -O2 -fPIC -I path/to/lua-5.4/src \
     gml_lua_bridge.c liblua54.a -o libgml_lua_bridge.dylib -lm
 ```
 
-You'll need to replace `path/to/lua-5.4` with the path to your copy of Lua 5.4.8's source, as well as build `liblua54.a` before compiling anything.
-You can also grab a pre-built copy online but be sure it is a copy of Lua 5.4.X.
+>[!NOTE]
+>You'll need to replace `path/to/lua-5.4` with the path to your copy of Lua 5.4.8's source, as well as build `liblua54.a` before compiling anything.
+>You can also grab a pre-built copy online but be sure it is a copy of Lua 5.4.X.
 
-**Do not use `onelua.c` directly without excluding `lua.c`/`luac.c`** as it auto-defines `MAKE_LUA` if you don't override it, which pulls in a `main()` that collides with anything else linking the library. This builds Lua from the individual source files instead, which sidesteps that trap entirely.
+>[!WARNING]
+>**Do not use `onelua.c` directly without excluding `lua.c`/`luac.c`** as it auto-defines `MAKE_LUA` if you don't override it, which pulls in a `main()` that collides with anything else linking the library. This builds Lua from the individual source files instead, which sidesteps that trap entirely.
 
 ## How to Use
 
