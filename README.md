@@ -26,16 +26,13 @@ GML + Lua is a tool for developers to implement Lua scripting in GameMaker proje
 
 ### Linux
 ```
-gcc -shared -O2 -fPIC -I path/to/lua-5.4/src \
-gml_lua_bridge.c path/to/liblua54.a \
--o libgml_lua_bridge.so -lm -Wl,--no-undefined
+gcc -shared -O2 -fPIC -I path/to/lua-5.4/src \gml_lua_bridge.c path/to/liblua54.a \-o libgml_lua_bridge.so -lm -Wl,--no-undefined
 ```
 
 ### Windows
 You'll want MSVC or MinGW. With MinGW, the equivalent is:
 ```
-gcc -shared -O2 -I path\to\lua-5.4\src gml_lua_bridge.c liblua54.a \
-    -o gml_lua_bridge.dll -Wl,--out-implib,gml_lua_bridge.lib
+gcc -shared -O2 -I path\to\lua-5.4\src gml_lua_bridge.c liblua54.a \-o gml_lua_bridge.dll -Wl,--out-implib,gml_lua_bridge.lib
 ```
 With MSVC, compile Lua as a static lib first (`lua54.lib`), then:
 ```
@@ -48,8 +45,7 @@ x86_64-w64-mingw32-gcc -shared -O2 -I path/to/lua-5.4/src gml_lua_bridge.c path/
 
 ### macOS
 ```
-clang -shared -O2 -fPIC -I path/to/lua-5.4/src \
-    gml_lua_bridge.c liblua54.a -o libgml_lua_bridge.dylib -lm
+clang -shared -O2 -fPIC -I path/to/lua-5.4/src \gml_lua_bridge.c liblua54.a -o libgml_lua_bridge.dylib -lm
 ```
 
 >[!NOTE]
