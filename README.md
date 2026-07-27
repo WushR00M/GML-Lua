@@ -22,6 +22,8 @@ GML + Lua is a tool for developers to implement Lua scripting in GameMaker proje
 >[!IMPORTANT]
 >Currently, you cannot use any version of Lua above 5.4.8, it is **highly recommended** you use the source for Lua 5.4.7 or **Lua 5.4.8**.
 
+**You need gcc to compile this! You can use `sudo apt install build-essentials` on Ubuntu, for example to quickly install it.**
+
 ### Linux
 ```
 gcc -shared -O2 -fPIC -I path/to/lua-5.4/src \
