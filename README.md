@@ -8,6 +8,7 @@ GML + Lua is a tool for developers to implement Lua scripting in GameMaker proje
 - `gml_lua_bridge.c` - the implementation.
 - `test_harness.c` - a debugging tool to use outside of GameMaker.
 - `sample_usage.gml` - an example on how to use it in GameMaker.
+- `sample_usage2.gml` - another example on how to use it in GameMaker.
 
 ## How It Works
 
