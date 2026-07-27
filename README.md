@@ -92,6 +92,8 @@ case "SetCurrentRoom":
 break;
 ```
 
+`_result` is what gets sent back to Lua, you can assign the value to variables later in Lua
+
 ## Other Examples
 
 If you want an example of how it's used in a proper game, I have a personal project, "Sunrise", that includes this library, [complete with documentation on its own custom functions.](https://wushroomstudios.com/docs/#/)
