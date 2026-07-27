@@ -12,10 +12,10 @@ the Lua code.
 // Functions (there's two global variables used here, global.mods_loaded and global.mod_count)
 
 function load_lua_script(filename){
-	var handler = instance_create_depth(0, 0, -1, obj_lua_manager);
+	var handler = instance_create_depth(0, 0, -1, <lua object name here>);
 	handler.file = filename;
 	handler.run_script = true;
-	log("Lua running " + string(filename));
+	show_debug_message("Lua running " + string(filename));
 }
 
 function load_mods(scan_mode = false) {
