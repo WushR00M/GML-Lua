@@ -15,8 +15,6 @@ as I'm lazy to write everything AGAIN in the comments of a C file :D
 
 #include "gml_lua_bridge.h"
 
-/* Config */
-
 #define MAX_CONTEXTS		32
 #define MAX_PENDING_CALLS   256
 #define INSTRUCTION_BUDGET  1000000 /* Lua instructions between hook checks before we abort a "runaway" script. */
@@ -81,10 +79,6 @@ static int lookup_state_context(lua_State* L, lua_State* thread) {
 	return result;
 }
 
-/* ------------------------------------------------------------------ */
-/* Instruction-count hook: infinite loop protection					*/
-/* ------------------------------------------------------------------ */
-
 static void instruction_hook(lua_State* L, lua_Debug* ar) {
 	(void)ar;
 	luaL_error(L, "script exceeded instruction budget (possible infinite loop)");
@@ -119,9 +113,7 @@ static int lua_game_call(lua_State* co) {
 	const char* func_name = luaL_checkstring(co, 1);
 	const char* args_json = luaL_optstring(co, 2, "");
 
-	/* Find owning context via the main registry (co IS a valid state
-	 * to index the registry with -- registry is shared across a
-	 * state's whole coroutine family). */
+	/* Find owning context via the main registry */
 	int context_id = lookup_state_context(co, co);
 	if (context_id < 0) {
 		return luaL_error(co, "game_call() invoked outside of a tracked script context");
