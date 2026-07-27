@@ -5,8 +5,9 @@ GML + Lua is a tool for developers to implement Lua scripting in GameMaker proje
 ## Files
 
 - `gml_lua_bridge.h` - the public API surface. This is what you'll declare as extension functions inside GameMaker's IDE.
-- `gml_lua_bridge.c` - the implementation
+- `gml_lua_bridge.c` - the implementation.
 - `test_harness.c` - a debugging tool to use outside of GameMaker.
+- `sample_usage.gml` - an example on how to use it in GameMaker.
 
 ## How It Works
 
@@ -65,3 +66,7 @@ You can also grab a pre-built copy online but be sure it is a copy of Lua 5.4.X.
    - `gml_lua_resolve_call` - Returns `double`, argument0 = `double`, argument1 = `double`, argument2 = `string`
    - `gml_lua_get_last_error` - Returns `string`, argument0 = `double`
 3. See `sample_usage.gml` for the GML-side controller object pattern (one persistent object per active mod context, polling the queue in its Step Event).
+
+## Other Examples
+
+If you want an example of how it's used in a proper game, I have a personal project, "Sunrise", that includes this library, [complete with documentation on its own custom functions.](https://wushroomstudios.com/docs/#/)
