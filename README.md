@@ -9,6 +9,7 @@ GML + Lua is a tool for developers to implement Lua scripting in GameMaker proje
 - `test_harness.c` - a debugging tool to use outside of GameMaker.
 - `sample_usage.gml` - an example on how to use it in GameMaker.
 - `sample_usage2.gml` - another example on how to use it in GameMaker.
+- `sample_script.lua` - one more example except it's for the actual Lua scripts themselves.
 
 ## How It Works
 
@@ -24,11 +25,6 @@ GML + Lua is a tool for developers to implement Lua scripting in GameMaker proje
 
 **You need gcc to compile this! You can use `sudo apt install build-essentials` on Ubuntu, for example to quickly install it.**
 
-### Linux
-```
-gcc -shared -O2 -fPIC -I path/to/lua-5.4/src \gml_lua_bridge.c path/to/liblua54.a \-o libgml_lua_bridge.so -lm -Wl,--no-undefined
-```
-
 ### Windows
 You'll want MSVC or MinGW. With MinGW, the equivalent is:
 ```
@@ -41,11 +37,6 @@ cl /LD gml_lua_bridge.c lua54.lib /I path\to\lua-5.4\src /Fe:gml_lua_bridge.dll
 You can also cross-compile the .dll with Windows Subsystem for Linux:
 ```
 x86_64-w64-mingw32-gcc -shared -O2 -I path/to/lua-5.4/src gml_lua_bridge.c path/to/lua-5.4/src/liblua54.a -o gml_lua_bridge.dll -lm -Wl,--out-implib,gml_lua_bridge.lib
-```
-
-### macOS
-```
-clang -shared -O2 -fPIC -I path/to/lua-5.4/src \gml_lua_bridge.c liblua54.a -o libgml_lua_bridge.dylib -lm
 ```
 
 >[!NOTE]
