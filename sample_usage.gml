@@ -37,13 +37,14 @@ if (run_status == 1) { // 1 = yielded, waiting on game_call
 
 			var _result = "";
 
+			// This is where you write custom functions for game_call
 			switch (_func) {
-				case "SetGravityMultiplier":
-					// This is where you write custom functions for game_call
+				case "MyCustomFunction":
 					var _sg_parts = string_split(_args, ",");
-					var _mult = real(_sg_parts[0]); // it MUST be in range to use it (no _sg_parts[1] because there's not an extra argument)
-					with (obj_player) { grav_multiplier = _mult; } // and then you can make it do things
-					_result = "ok";
+					var _argu0 = real(_sg_parts[0]); // it MUST be in range to use it (no _sg_parts[1] because there's not an extra argument)
+					// From there, you can interact with all of your arguments normally, via "_sg_parts[#] going into each of their own variables"
+					// Here, I just made it return the argument you just passed in Lua
+					_result = string(_argu0);
 					break;
 
 				default:
@@ -64,5 +65,4 @@ if (run_status == -2) {
 
 
 // Optional but a good idea, you should probably put this in the Clean-Up / Destory event :)
-
 gml_lua_destroy_context(context_id);
