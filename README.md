@@ -21,7 +21,7 @@ GMLua is a tool for GameMaker developers to implement Lua scripting in their gam
 **You need gcc to compile this! You can use `sudo apt install build-essentials` on Ubuntu with WSL, for example to quickly install it.**
 
 ### Windows
-(Windows Subsystem for Linux)[https://github.com/microsoft/WSL] is required to run the following:
+[Windows Subsystem for Linux](https://github.com/microsoft/WSL) is required to run the following:
 ```
 x86_64-w64-mingw32-gcc -shared -O2 -I path/to/lua-5.4/src gml_lua_bridge.c path/to/lua-5.4/src/liblua54.a -o gml_lua_bridge.dll -lm -Wl,--out-implib,gml_lua_bridge.lib
 ```
