@@ -1,47 +1,33 @@
-# GML + Lua
+# GMLua
 
-GML + Lua is a tool for developers to implement Lua scripting in GameMaker projects, built upon the foundation of Lua 5.4.8.
+GMLua is a tool for GameMaker developers to implement Lua scripting in their games, built upon the foundation of Lua 5.4.8.
 
 ## Files
 
-- `gml_lua_bridge.h` - the public API surface. This is what you'll declare as extension functions inside GameMaker's IDE.
-- `gml_lua_bridge.c` - the implementation.
-- `test_harness.c` - a debugging tool to use outside of GameMaker.
-- `sample_usage.gml` - an example on how to use it in GameMaker.
-- `sample_usage2.gml` - another example on how to use it in GameMaker.
-- `sample_script.lua` - one more example except it's for the actual Lua scripts themselves.
+- `gml_lua_bridge.h` - the API service
+- `gml_lua_bridge.c` - the implementation
+- `test_harness.c` - a debugging tool to use outside of GameMaker
 
 ## How It Works
 
-- Every script runs as its own **Lua coroutine**, not the main thread of the Lua state. That's what makes `game_call()` the only function scripts have to communicate directly with the game
-- When a script calls `game_call("FunctionHere", "...")`, the C side parks that coroutine (so it survives garbage collection) and drops a request into a queue. A potential Lua persistant object's GML Step Event polls that queue once a frame, does the real work, and hands the result back resumes the script exactly where it left off.
-- The sandbox never opens `io`, `os`, `debug`, or `package`, scripts physically cannot touch the filesystem or spawn processes, full stop, regardless of what the script tries.
-- An instruction-count hook aborts any script that runs too long without yielding or returning, so a script with a bad loop can't freeze the game.
+- Every script runs as its own **Lua coroutine**, not the main thread of the Lua state. That's what makes `game_call()` the only function scripts have to communicate directly with the game.
+- When a script calls `game_call("functionName", "...")`, the C side parks that co-routine (so it survives GameMaker's garbage collection) and drops a request into a queue. From there, you can set up an in-game persistent object's Step Event to poll that queue once a frame and resume the script exactly where it left off.
 
 ## Compiling
 
 >[!IMPORTANT]
 >Currently, you cannot use any version of Lua above 5.4.8, it is **highly recommended** you use the source for Lua 5.4.7 or **Lua 5.4.8**.
 
-**You need gcc to compile this! You can use `sudo apt install build-essentials` on Ubuntu, for example to quickly install it.**
+**You need gcc to compile this! You can use `sudo apt install build-essentials` on Ubuntu with WSL, for example to quickly install it.**
 
 ### Windows
-You'll want MSVC or MinGW. With MinGW, the equivalent is:
-```
-gcc -shared -O2 -I path\to\lua-5.4\src gml_lua_bridge.c liblua54.a \-o gml_lua_bridge.dll -Wl,--out-implib,gml_lua_bridge.lib
-```
-With MSVC, compile Lua as a static lib first (`lua54.lib`), then:
-```
-cl /LD gml_lua_bridge.c lua54.lib /I path\to\lua-5.4\src /Fe:gml_lua_bridge.dll
-```
-You can also cross-compile the .dll with Windows Subsystem for Linux:
+(Windows Subsystem for Linux)[https://github.com/microsoft/WSL] is required to run the following:
 ```
 x86_64-w64-mingw32-gcc -shared -O2 -I path/to/lua-5.4/src gml_lua_bridge.c path/to/lua-5.4/src/liblua54.a -o gml_lua_bridge.dll -lm -Wl,--out-implib,gml_lua_bridge.lib
 ```
 
 >[!NOTE]
 >You'll need to replace `path/to/lua-5.4` with the path to your copy of Lua 5.4.8's source, as well as build `liblua54.a` before compiling anything.
->You can also grab a pre-built copy online but be sure it is a copy of Lua 5.4.X.
 
 >[!WARNING]
 >**Do not use `onelua.c` directly without excluding `lua.c`/`luac.c`** as it auto-defines `MAKE_LUA` if you don't override it, which pulls in a `main()` that collides with anything else linking the library. This builds Lua from the individual source files instead, which sidesteps that trap entirely.
